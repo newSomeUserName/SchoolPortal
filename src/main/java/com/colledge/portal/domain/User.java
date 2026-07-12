@@ -1,28 +1,46 @@
 package com.colledge.portal.domain;
 
 import com.colledge.portal.domain.shared.UserRole;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.*;
+
+
 import java.util.UUID;
 
 @Entity
 @Table(name = "users")
+@AllArgsConstructor
+@Builder
+@Getter
+@Setter
 public class User {
     @Id
-    @Column(nullable = false)
+    @Column(name = "user_guid",nullable = false)
     public UUID uuid;
-    @Column(length = 15)
+
+    @Column(name = "user_number",length = 15)
     public String userNumber;
-    @Column(length = 50, nullable = false)
+    @Column(name = "name",length = 50, nullable = false)
     public String name;
-    @Column(length = 50, nullable = false)
+    @Column(name = "surname",length = 50, nullable = false)
     public String surname;
-    @Column(nullable = false)
-    public UserRole userRole;
-    @Column(length = 100,nullable = false)
+    @Column(name = "email",length = 100,nullable = false)
     public String email;
+
+    @Column(name = "user_role",nullable = false)
+    @Enumerated(EnumType.ORDINAL)
+    public UserRole userRole;
+
+    @PrePersist
+    public void generateUUID()
+    {
+        uuid = UUID.randomUUID();
+        userNumber = "Default";
+        userRole = UserRole.Student;
+    }
+
+    protected User(){}
+
 
 
 }

@@ -1,6 +1,10 @@
 package com.colledge.portal.application.auth.interfaces;
 
 
+import com.colledge.portal.api.request.RegisterRequest;
+
+import java.util.UUID;
+
 public interface RegisterService {
-    String register(String name, String Surname, String password);
+    UUID register(RegisterRequest registerRequest);
 }
