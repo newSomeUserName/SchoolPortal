@@ -1,9 +1,8 @@
 package com.colledge.portal.api.controller;
 
 
-import com.colledge.portal.api.request.LoginRequest;
-import com.colledge.portal.api.request.RegisterRequest;
-import com.colledge.portal.application.auth.RegisterServiceImpl;
+import com.colledge.portal.api.request.auth.LoginRequest;
+import com.colledge.portal.api.request.auth.RegisterRequest;
 import com.colledge.portal.application.auth.interfaces.RegisterService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +26,8 @@ public class AuthController {
     {
         return ResponseEntity.noContent().build();
     }
+
+
 
 
     @PostMapping("/register")

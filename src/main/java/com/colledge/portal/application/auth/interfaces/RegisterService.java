@@ -1,7 +1,7 @@
 package com.colledge.portal.application.auth.interfaces;
 
 
-import com.colledge.portal.api.request.RegisterRequest;
+import com.colledge.portal.api.request.auth.RegisterRequest;
 
 import java.util.UUID;
 

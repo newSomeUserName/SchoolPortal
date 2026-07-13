@@ -1,4 +1,4 @@
-package com.colledge.portal.api.request;
+package com.colledge.portal.api.request.auth;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
