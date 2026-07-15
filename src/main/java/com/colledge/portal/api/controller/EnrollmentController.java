@@ -1,14 +1,12 @@
 package com.colledge.portal.api.controller;
 
+import com.colledge.portal.api.request.lesson.DeleteStudentRequest;
 import com.colledge.portal.api.request.lesson.EnrollStudentRequest;
 import com.colledge.portal.application.enrolment.interfaces.EnrolmentService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -27,6 +25,12 @@ public class EnrollmentController {
     public ResponseEntity<Void> enrollStudent(@RequestBody @Valid EnrollStudentRequest enrollStudentRequest)
     {
         _enrolmentService.enrollStudent(enrollStudentRequest);
+        return ResponseEntity.noContent().build();
+    }
+    @DeleteMapping("/delete")
+    public ResponseEntity<Void> removeStudent(@RequestBody @Valid DeleteStudentRequest deleteStudentRequest)
+    {
+        _enrolmentService.deleteStudent(deleteStudentRequest);
         return ResponseEntity.noContent().build();
     }
 }

@@ -1,5 +1,6 @@
 package com.colledge.portal.application.enrolment;
 
+import com.colledge.portal.api.request.lesson.DeleteStudentRequest;
 import com.colledge.portal.api.request.lesson.EnrollStudentRequest;
 import com.colledge.portal.application.enrolment.interfaces.EnrolmentService;
 import com.colledge.portal.infrastructure.persistence.lessons_repository.LessonsRepository;
@@ -24,5 +25,12 @@ public class EnrolmentServiceImpl implements EnrolmentService {
         var lesson = _lessonsRepository.findById(enrollStudentRequest.lessonId()).orElseThrow();
         var user = _userRepository.findById(enrollStudentRequest.userId()).orElseThrow();
         user.lessons.add(lesson);
+    }
+    @Transactional
+    public void deleteStudent(DeleteStudentRequest deleteStudentRequest)
+    {
+        var lesson = _lessonsRepository.findById(deleteStudentRequest.lessonId()).orElseThrow();
+        var user = _userRepository.findById(deleteStudentRequest.userId()).orElseThrow();
+        lesson.users.remove(user);
     }
 }
