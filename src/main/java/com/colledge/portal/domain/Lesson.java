@@ -6,10 +6,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Lessons")
+@Table(name = "lessons")
 @AllArgsConstructor
 @Builder
 @Getter
@@ -25,6 +26,12 @@ public class Lesson {
 
     @Column(name = "frequency")
     private byte frequency;
+
+    @ManyToMany
+    @JoinTable(name = "enrollments",
+            joinColumns = @JoinColumn(name = "lesson_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    public Set<User> users;
 
     protected Lesson(){}
 

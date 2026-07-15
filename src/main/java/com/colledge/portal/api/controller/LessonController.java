@@ -1,6 +1,7 @@
 package com.colledge.portal.api.controller;
 
 
+import com.colledge.portal.api.request.lesson.EnrollStudentRequest;
 import com.colledge.portal.api.request.lesson.LessonAddRequest;
 import com.colledge.portal.application.lesson.interfaces.LessonService;
 import jakarta.validation.Valid;
@@ -32,4 +33,6 @@ public class LessonController {
         UUID createdLessonId = _lessonService.addLesson(lessonAddRequest);
         return ResponseEntity.ok(createdLessonId);
     }
+
+
 }

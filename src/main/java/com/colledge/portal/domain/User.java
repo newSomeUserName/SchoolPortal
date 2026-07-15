@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -30,6 +31,13 @@ public class User {
     @Column(name = "user_role",nullable = false)
     @Enumerated(EnumType.ORDINAL)
     public UserRole userRole;
+
+
+    @ManyToMany
+    @JoinTable(name = "enrollments",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "lesson_id"))
+    public Set<Lesson> lessons;
 
     @PrePersist
     public void generateUUID()
