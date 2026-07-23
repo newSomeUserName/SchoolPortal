@@ -10,6 +10,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "users")
+@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Getter
@@ -17,40 +18,31 @@ import java.util.UUID;
 public class User {
     @Id
     @Column(name = "user_guid",nullable = false)
-    public UUID uuid;
+    private UUID id;
 
-    @Column(name = "user_number",length = 15)
-    public String userNumber;
     @Column(name = "name",length = 50, nullable = false)
-    public String name;
+    private String name;
+
     @Column(name = "surname",length = 50, nullable = false)
-    public String surname;
+    private String surname;
+
     @Column(name = "email",length = 100,nullable = false)
-    public String email;
+    private String email;
 
     @Column(name = "user_role",nullable = false)
-    @Enumerated(EnumType.ORDINAL)
-    public UserRole userRole;
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole;
 
     @Column(name = "password_hash",nullable = false)
-    public String passwordHash;
+    private String passwordHash;
 
-
-
-    @ManyToMany
-    @JoinTable(name = "enrollments",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "lesson_id"))
-    public Set<Lesson> lessons;
 
     @PrePersist
     public void generateUUID()
     {
-        uuid = UUID.randomUUID();
-        userNumber = "Default";
+        id = UUID.randomUUID();
     }
 
-    protected User(){}
 
 
 

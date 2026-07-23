@@ -1,17 +1,16 @@
 package com.colledge.portal.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
 @Entity
 @Table(name = "lessons")
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Getter
 @Setter
@@ -21,19 +20,20 @@ public class Lesson {
     @Column(name = "id")
     private UUID id;
 
-    @Column(name = "name", length = 100)
+    @Column(name = "name", length = 100, nullable = false)
     private String name;
 
     @Column(name = "frequency")
-    private byte frequency;
+    private short frequency;
 
-    @ManyToMany
-    @JoinTable(name = "enrollments",
-            joinColumns = @JoinColumn(name = "lesson_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
-    public Set<User> users;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "teacher_id", nullable = false, foreignKey = @ForeignKey(name = "fk_lessons_teacher"))
+    private Teacher teacher;
 
-    protected Lesson(){}
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lesson")
+    @Builder.Default
+    private Set<Enrollment> enrollments = new HashSet<>();
+
 
     @PrePersist
     protected void generateUUID()
