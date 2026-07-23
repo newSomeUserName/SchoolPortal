@@ -24,12 +24,10 @@ public class RegisterServiceImpl implements RegisterService {
     @Override
     public UUID register(RegisterRequest registerRequest) {
 
+        User user = User.builder().name(registerRequest.name()).surname(registerRequest.surname()).email(registerRequest.email()).passwordHash(_passwordHasher.hash(registerRequest.rawPassword())).userRole(registerRequest.userRole()).build();
 
-        User user = User.builder().name(registerRequest.name()).surname(registerRequest.surname()).email(registerRequest.email()).build();
+        _userRepository.save(user);
 
-        System.out.println(_passwordHasher.hash(registerRequest.rawPassword()));
-        System.out.println(_passwordHasher.hash(registerRequest.rawPassword()));
-         _userRepository.save(user);
-         return user.uuid;
+        return user.uuid;
     }
 }

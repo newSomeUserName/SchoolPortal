@@ -33,4 +33,5 @@ public class EnrolmentServiceImpl implements EnrolmentService {
         var user = _userRepository.findById(deleteStudentRequest.userId()).orElseThrow();
         lesson.users.remove(user);
     }
+
 }

@@ -32,6 +32,10 @@ public class User {
     @Enumerated(EnumType.ORDINAL)
     public UserRole userRole;
 
+    @Column(name = "password_hash",nullable = false)
+    public String passwordHash;
+
+
 
     @ManyToMany
     @JoinTable(name = "enrollments",
@@ -44,7 +48,6 @@ public class User {
     {
         uuid = UUID.randomUUID();
         userNumber = "Default";
-        userRole = UserRole.Student;
     }
 
     protected User(){}
